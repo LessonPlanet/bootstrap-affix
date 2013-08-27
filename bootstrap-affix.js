@@ -42,19 +42,19 @@
         , scrollTop = this.$window.scrollTop()
         , position = this.$element.offset()
         , offset = this.options.offset
-        , cssTop = offset.cssTop
+        , offsetCssTop = offset.cssTop
         , offsetBottom = offset.bottom
         , offsetTop = offset.top
         , reset = 'affix affix-top affix-bottom'
         , affix
 
-    if (typeof offset != 'object') offsetBottom = offsetTop = offset
+    if (typeof offset != 'object') offsetBottom = offsetTop = offsetCssTop = offset
     if (typeof offsetTop == 'function') offsetTop = offset.top()
     if (typeof offsetBottom == 'function') offsetBottom = offset.bottom()
     if (typeof offsetCssTop == 'function') offsetCssTop = offset.cssTop()
 
     affix = this.unpin != null && (scrollTop + this.unpin <= position.top) ? false : offsetBottom != null && (this.$element.outerHeight(true) + scrollTop > scrollHeight - offsetBottom) ? 'bottom' : offsetTop != null && scrollTop <= offsetTop ? 'top' : false
-    affix == 'bottom' ? this.$element.css('bottom', (scrollTop + $(window).height()) - (scrollHeight - offsetBottom) - cssTop) : this.$element.css('bottom', 'auto')
+    affix == 'bottom' ? this.$element.css('bottom', (scrollTop + $(window).height()) - (scrollHeight - offsetBottom) - offsetCssTop) : this.$element.css('bottom', 'auto')
 
     if (this.affixed === affix) return
 
